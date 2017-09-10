@@ -3,51 +3,55 @@ package demo.service
 import demo.domain.Property
 import demo.repository.PropertyRepository
 import demo.service.core.Code
+import demo.service.core.PropertyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
+
+import java.util.stream.Collectors
 
 @Service
 class ConfigurationService {
 
     @Autowired
-    private val propertyRepository: PropertyRepository? = null
+    private PropertyRepository propertyRepository
 
     @Autowired
-    private val configurationHistoryService: ConfigurationHistoryService? = null
+    private ConfigurationHistoryService configurationHistoryService
 
     @Autowired
-    private val registerService: RegisterService? = null
+    private RegisterService registerService
 
-    fun findAllProperties(): List<Property> {
-        return propertyRepository!!.findAll()
-                .map { property -> this.addPossibleValues(property) }
+    List<Property> findAllProperties() {
+        List<Property> properties = propertyRepository.findAll()
+        return properties.stream()
+                .map(this::addPossibleValues)
+                .collect(Collectors.toList())
     }
 
-    fun findPropertyByName(name: String): Optional<Property> {
-        return propertyRepository!!.findByCode(Code.valueOf(name))
-                .map { property -> this.addPossibleValues(property) }
+    Optional<Property> findPropertyByName(String name) {
+        Optional<Property> propertyOpt = propertyRepository.findByCode(Code.valueOf(name))
+        return propertyOpt.map(this::addPossibleValues)
     }
 
-    private fun addPossibleValues(property: Property): Property {
-        val propertyService = registerService!!.findPropertyServiceByCode(property.code!!)
+    private Property addPossibleValues(Property property) {
+        PropertyService<?> propertyService = registerService.findPropertyServiceByCode(property.getCode())
         return property.addPossibleValues(propertyService.getPossibleValues())
     }
 
     @Transactional
-    fun updateProperty(name: String, value: String): Property {
-        val propertyOpt = propertyRepository!!.findByCode(Code.valueOf(name))
-        if (!propertyOpt.isPresent) {
-            throw RuntimeException("Property not found by name: " + name)
+    Property updateProperty(String name, String value) {
+        Optional<Property> configurationOpt = propertyRepository.findByCode(Code.valueOf(name))
+        if (!configurationOpt.isPresent()) {
+            throw new RuntimeException("Property not found by name: " + name)
         }
 
-        val property = propertyOpt.get()
-        val code = property.code!!
+        Property property = configurationOpt.get()
+        Code code = property.getCode()
 
-        configurationHistoryService!!.savePropertyHistory(code, property.value!!, value)
+        configurationHistoryService.save(code, property.getValue(), value)
 
-        val propertyService = registerService!!.findPropertyServiceByCode(code)
+        PropertyService<?> propertyService = registerService.findPropertyServiceByCode(code)
         return propertyService.update(value)
     }
 }

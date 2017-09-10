@@ -3,39 +3,40 @@ package demo.service.core
 import demo.domain.Property
 import demo.repository.PropertyRepository
 import org.springframework.beans.factory.annotation.Autowired
-import java.util.*
 
-abstract class AbstractPropertyService<T> : PropertyService<T> {
+abstract class AbstractPropertyService<T> implements PropertyService<T> {
 
-    private var valueOpt = Optional.empty<T>()
+    private Optional<T> valueOpt = Optional.empty()
 
     @Autowired
-    private val propertyRepository: PropertyRepository? = null
+    private PropertyRepository propertyRepository
 
-    override fun update(value: String): Property {
+    @Override
+    Property update(String value) {
         valueOpt = Optional.of(fromString(value))
         return save(value)
     }
 
-    override fun init() {
-        val propertyOpt = findPropertyByCode(getCode())
-        if (propertyOpt.isPresent) {
-            val value = propertyOpt.get().value
+    @Override
+    void init() {
+        Optional<Property> propertyOpt = findPropertyByCode(getCode())
+        if (propertyOpt.isPresent()) {
+            String value = propertyOpt.get().getValue()
             valueOpt = Optional.of(fromString(value))
         } else {
-            val value = getDefaultValue()
+            T value = getDefaultValue()
             valueOpt = Optional.of(value)
             save(toString(value))
         }
     }
 
-    fun get(): T {
-        if (valueOpt.isPresent) {
+    T get() {
+        if (valueOpt.isPresent()) {
             return valueOpt.get()
         } else {
-            val propertyOpt = findPropertyByCode(getCode())
-            if (propertyOpt.isPresent) {
-                valueOpt = Optional.of(fromString(propertyOpt.get().value))
+            Optional<Property> propertyOpt = findPropertyByCode(getCode())
+            if (propertyOpt.isPresent()) {
+                valueOpt = Optional.of(fromString(propertyOpt.get().getValue()))
                 return valueOpt.get()
             } else {
                 return getDefaultValue()
@@ -43,30 +44,33 @@ abstract class AbstractPropertyService<T> : PropertyService<T> {
         }
     }
 
-    protected abstract fun getType(): Type
+    protected abstract Type getType()
 
-    protected abstract fun fromString(input: String?): T
+    protected abstract T fromString(String input)
 
-    protected abstract fun toString(input: T?): String
+    protected abstract String toString(T input)
 
-    protected abstract fun getDefaultValue(): T
+    protected abstract T getDefaultValue()
 
-    override fun getPossibleValues(): List<String> = ArrayList()
-
-    private fun findPropertyByCode(code: Code): Optional<Property> {
-        return propertyRepository!!.findByCode(code)
+    List<String> getPossibleValues() {
+        return new ArrayList<>()
     }
 
-    private fun save(value: String): Property {
-        val property = Property()
-        property.code = getCode()
-        property.type = getType()
-        property.value = value
-
-        return propertyRepository!!.save(property)
+    private Optional<Property> findPropertyByCode(Code code) {
+        return propertyRepository.findByCode(code)
     }
 
-    override fun toString(): String {
+    private Property save(String value) {
+        Property property = new Property()
+        property.setCode(getCode())
+        property.setType(getType())
+        property.setValue(value)
+
+        return propertyRepository.save(property)
+    }
+
+    @Override
+    String toString() {
         return super.toString() + "{" +
                 "getCode()=" + getCode() +
                 ", getType()=" + getType() +

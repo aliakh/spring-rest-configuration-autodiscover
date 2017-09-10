@@ -1,16 +1,23 @@
 package demo.service.core
 
-import java.util.*
+abstract class PropertyBooleanService extends AbstractPropertyService<Boolean> {
 
-abstract class PropertyBooleanService : AbstractPropertyService<Boolean>() {
+    @Override
+    Type getType() {
+        return Type.BOOLEAN
+    }
 
-    override fun getType() = Type.BOOLEAN
+    @Override
+    Boolean fromString(String input) {
+        return input == null ? getDefaultValue() : Boolean.valueOf(input)
+    }
 
-    public override fun fromString(input: String?): Boolean =
-            if (input == null) getDefaultValue() else java.lang.Boolean.valueOf(input)
+    @Override
+    String toString(Boolean input) {
+        return (input == null) ? getDefaultValue().toString() : String.valueOf(input)
+    }
 
-    public override fun toString(input: Boolean?): String =
-            input?.toString() ?: getDefaultValue().toString()
-
-    override fun getPossibleValues(): List<String> = Arrays.asList("true", "false")
+    List<String> getPossibleValues() {
+        return Arrays.asList("true", "false")
+    }
 }

@@ -2,7 +2,7 @@ package demo.domain
 
 import demo.service.core.Code
 import demo.service.core.Type
-import java.util.*
+
 import javax.persistence.*
 
 @Entity
@@ -10,19 +10,51 @@ class Property {
 
     @Id
     @Enumerated(value = EnumType.STRING)
-    var code: Code? = null
+    private Code code
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    var type: Type? = null
+    private Type type
 
     @Column(nullable = false)
-    var value: String? = null
+    private String value
 
     @Transient
-    var possibleValues: List<String> = ArrayList()
+    private List<String> possibleValues = new ArrayList<>()
 
-    fun addPossibleValues(possibleValues: List<String>): Property {
+    Code getCode() {
+        return code
+    }
+
+    void setCode(Code code) {
+        this.code = code
+    }
+
+    Type getType() {
+        return type
+    }
+
+    void setType(Type type) {
+        this.type = type
+    }
+
+    String getValue() {
+        return value
+    }
+
+    void setValue(String value) {
+        this.value = value
+    }
+
+    List<String> getPossibleValues() {
+        return possibleValues
+    }
+
+    void setPossibleValues(List<String> possibleValues) {
+        this.possibleValues = possibleValues
+    }
+
+    Property addPossibleValues(List<String> possibleValues) {
         this.possibleValues = possibleValues
         return this
     }

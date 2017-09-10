@@ -6,20 +6,29 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExamplePropertyEnumService : PropertyEnumService<ExamplePropertyEnumService.ExampleEnum>() {
+class ExamplePropertyEnumService extends PropertyEnumService<ExamplePropertyEnumService.ExampleEnum> {
 
-    @Value("\${example.property.enum}")
-    private val defaultValue: ExampleEnum? = null
+    @Value("${example.property.enum}")
+    private ExampleEnum defaultValue
 
-    override fun getCode() = Code.EXAMPLE_ENUM_PROPERTY
+    @Override
+    Code getCode() {
+        return Code.EXAMPLE_ENUM_PROPERTY
+    }
 
-    public override fun getDefaultValue() = defaultValue!!
+    @Override
+    ExampleEnum getDefaultValue() {
+        return defaultValue
+    }
 
-    override fun getEnumClass(): Class<ExampleEnum> = ExampleEnum::class.java
+    @Override
+    Class<ExampleEnum> getEnumClass() {
+        return ExampleEnum.class
+    }
 
-    enum class ExampleEnum {
+    enum ExampleEnum {
         ONE,
         TWO,
-        THREE
+        THREE,
     }
 }

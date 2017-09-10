@@ -6,12 +6,18 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExamplePropertyStringService : PropertyStringService() {
+class ExamplePropertyStringService extends PropertyStringService {
 
-    @Value("\${example.property.string}")
-    private val defaultValue: String? = null
+    @Value("${example.property.string}")
+    private String defaultValue
 
-    override fun getCode() = Code.EXAMPLE_STRING_PROPERTY
+    @Override
+    Code getCode() {
+        return Code.EXAMPLE_STRING_PROPERTY
+    }
 
-    public override fun getDefaultValue() = defaultValue!!
+    @Override
+    String getDefaultValue() {
+        return defaultValue
+    }
 }

@@ -1,16 +1,29 @@
 package demo.service.core
 
-abstract class PropertyEnumService<T : Enum<T>> : AbstractPropertyService<T>() {
+import java.util.stream.Collectors
+import java.util.stream.Stream
 
-    override fun getType() = Type.ENUM
+abstract class PropertyEnumService<T extends Enum<T>> extends AbstractPropertyService<T> {
 
-    public override fun fromString(input: String?): T =
-            if (input == null) getDefaultValue() else java.lang.Enum.valueOf<T>(getEnumClass(), input)
+    @Override
+    Type getType() {
+        return Type.ENUM
+    }
 
-    public override fun toString(input: T?): String =
-            input?.toString() ?: getDefaultValue().toString()
+    @Override
+    T fromString(String input) {
+        return input == null ? getDefaultValue() : Enum.valueOf(getEnumClass(), input)
+    }
 
-    override fun getPossibleValues(): List<String> = getEnumClass().enumConstants.map { it -> it.name }
+    @Override
+    String toString(T input) {
+        return (input == null) ? getDefaultValue().toString() : String.valueOf(input)
+    }
 
-    protected abstract fun getEnumClass(): Class<T>
+    @Override
+    List<String> getPossibleValues() {
+        return Stream.of(getEnumClass().getEnumConstants()).map(Enum::name).collect(Collectors.toList())
+    }
+
+    protected abstract Class<T> getEnumClass()
 }

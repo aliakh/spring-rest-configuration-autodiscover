@@ -4,11 +4,11 @@ import demo.domain.Property
 
 interface PropertyService<T> {
 
-    fun update(value: String): Property
+    Property update(String value)
 
-    fun init()
+    void init()
 
-    fun getCode(): Code
+    Code getCode()
 
-    fun getPossibleValues(): List<String>
+    List<String> getPossibleValues()
 }

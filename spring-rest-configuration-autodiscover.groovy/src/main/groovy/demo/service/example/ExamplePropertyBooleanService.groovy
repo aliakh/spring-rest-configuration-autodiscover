@@ -6,12 +6,18 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExamplePropertyBooleanService : PropertyBooleanService() {
+class ExamplePropertyBooleanService extends PropertyBooleanService {
 
-    @Value("\${example.property.boolean}")
-    private val defaultValue: Boolean? = null
+    @Value("${example.property.boolean}")
+    private boolean defaultValue
 
-    override fun getCode() = Code.EXAMPLE_BOOLEAN_PROPERTY
+    @Override
+    Code getCode() {
+        return Code.EXAMPLE_BOOLEAN_PROPERTY
+    }
 
-    public override fun getDefaultValue() = defaultValue!!
+    @Override
+    Boolean getDefaultValue() {
+        return defaultValue
+    }
 }

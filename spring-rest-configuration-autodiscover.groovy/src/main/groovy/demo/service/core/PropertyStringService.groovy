@@ -1,12 +1,19 @@
 package demo.service.core
 
-abstract class PropertyStringService : AbstractPropertyService<String>() {
+abstract class PropertyStringService extends AbstractPropertyService<String> {
 
-    override fun getType() = Type.STRING
+    @Override
+    Type getType() {
+        return Type.STRING
+    }
 
-    public override fun fromString(input: String?): String =
-            input ?: getDefaultValue()
+    @Override
+    String fromString(String input) {
+        return input == null ? getDefaultValue() : input
+    }
 
-    public override fun toString(input: String?): String =
-            input ?: getDefaultValue()
+    @Override
+    String toString(String input) {
+        return (input == null) ? getDefaultValue() : input
+    }
 }

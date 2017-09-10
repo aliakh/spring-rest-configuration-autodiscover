@@ -1,12 +1,19 @@
 package demo.service.core
 
-abstract class PropertyIntegerService : AbstractPropertyService<Int>() {
+abstract class PropertyIntegerService extends AbstractPropertyService<Integer> {
 
-    override fun getType() = Type.INTEGER
+    @Override
+    Type getType() {
+        return Type.INTEGER
+    }
 
-    public override fun fromString(input: String?): Int =
-            if (input == null) getDefaultValue() else Integer.valueOf(input)
+    @Override
+    Integer fromString(String input) {
+        return input == null ? getDefaultValue() : Integer.valueOf(input)
+    }
 
-    public override fun toString(input: Int?): String =
-            input?.toString() ?: getDefaultValue().toString()
+    @Override
+    String toString(Integer input) {
+        return (input == null) ? getDefaultValue().toString() : String.valueOf(input)
+    }
 }

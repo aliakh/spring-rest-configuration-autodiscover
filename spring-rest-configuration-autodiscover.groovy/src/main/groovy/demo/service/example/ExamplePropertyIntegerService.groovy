@@ -6,12 +6,18 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExamplePropertyIntegerService : PropertyIntegerService() {
+class ExamplePropertyIntegerService extends PropertyIntegerService {
 
-    @Value("\${example.property.integer}")
-    private val defaultValue: Int? = null
+    @Value("${example.property.integer}")
+    private Integer defaultValue
 
-    override fun getCode() = Code.EXAMPLE_INTEGER_PROPERTY
+    @Override
+    Code getCode() {
+        return Code.EXAMPLE_INTEGER_PROPERTY
+    }
 
-    public override fun getDefaultValue() = defaultValue!!
+    @Override
+    Integer getDefaultValue() {
+        return defaultValue
+    }
 }
