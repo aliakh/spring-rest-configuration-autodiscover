@@ -1,0 +1,8 @@
+package demo.service.core;
+
+public enum Code {
+    EXAMPLE_ENUM_PROPERTY,
+    EXAMPLE_BOOLEAN_PROPERTY,
+    EXAMPLE_STRING_PROPERTY,
+    EXAMPLE_INTEGER_PROPERTY,
+}
