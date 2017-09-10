@@ -11,7 +11,7 @@ class ExamplePropertyStringService : PropertyStringService() {
     @Value("\${example.property.string}")
     private val defaultValue: String? = null
 
-    override fun getCode() = Code.EXAMPLE_STRING_PROPERTY
+    override def getCode() = Code.EXAMPLE_STRING_PROPERTY
 
-    public override fun getDefaultValue() = defaultValue!!
+    public override def getDefaultValue() = defaultValue!!
 }

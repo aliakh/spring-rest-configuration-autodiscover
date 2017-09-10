@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation._
 import javax.validation.Valid
 
 @RestController
@@ -23,28 +23,28 @@ class ConfigurationController {
     private val configurationHistoryService: ConfigurationHistoryService? = null
 
     @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
-    fun findAllProperties(): ResponseEntity<List<Property>> {
-        return ResponseEntity(configurationService!!.findAllProperties(), HttpStatus.OK)
+    def findAllProperties(): ResponseEntity<List<Property>> {
+        return ResponseEntity(configurationService.findAllProperties(), HttpStatus.OK)
     }
 
     @RequestMapping(value = "/name/{name}", method = arrayOf(RequestMethod.GET))
-    fun findPropertyByName(
+    def findPropertyByName(
             @PathVariable name: String): ResponseEntity<Property> {
-        val propertyOpt = configurationService!!.findPropertyByName(name)
+        val propertyOpt = configurationService.findPropertyByName(name)
         return propertyOpt
                 .map<ResponseEntity<Property>>({ property -> ResponseEntity(property, HttpStatus.OK) })
                 .orElseGet { ResponseEntity(Property(), HttpStatus.NOT_FOUND) }
     }
 
     @RequestMapping(value = "/name/{name}", method = arrayOf(RequestMethod.PUT), consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE))
-    fun updateProperty(
+    def updateProperty(
             @PathVariable name: String,
             @Valid @RequestBody value: Value): ResponseEntity<Property> {
-        return ResponseEntity(configurationService!!.updateProperty(name, value.value!!), HttpStatus.OK)
+        return ResponseEntity(configurationService.updateProperty(name, value.value!!), HttpStatus.OK)
     }
 
     @RequestMapping(value = "/history", method = arrayOf(RequestMethod.GET))
-    fun findAllPropertyHistories(): List<PropertyHistory> {
-        return configurationHistoryService!!.findAllPropertyHistories()
+    def findAllPropertyHistories(): List<PropertyHistory> {
+        return configurationHistoryService.findAllPropertyHistories()
     }
 }

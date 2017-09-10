@@ -34,53 +34,53 @@ class PropertyServiceWriteTest {
     private val examplePropertyIntegerService: ExamplePropertyIntegerService? = null
 
     @Test
-    fun update1Test() {
-        examplePropertyEnumService!!.init()
-        val value1 = examplePropertyEnumService!!.get()
+    def update1Test() {
+        examplePropertyEnumService.init()
+        val value1 = examplePropertyEnumService.get()
         assertThat(value1).isEqualTo(ExamplePropertyEnumService.ExampleEnum.ONE)
 
-        configurationService!!.updateProperty("EXAMPLE_ENUM_PROPERTY", "TWO")
+        configurationService.updateProperty("EXAMPLE_ENUM_PROPERTY", "TWO")
 
-        val value2 = examplePropertyEnumService!!.get()
+        val value2 = examplePropertyEnumService.get()
         assertThat(value2).isEqualTo(ExamplePropertyEnumService.ExampleEnum.TWO)
         assertThat(value2).isEqualTo(ExamplePropertyEnumService.ExampleEnum.TWO)
     }
 
     @Test
-    fun update2Test() {
-        examplePropertyBooleanService!!.init()
-        val value1 = examplePropertyBooleanService!!.get()
+    def update2Test() {
+        examplePropertyBooleanService.init()
+        val value1 = examplePropertyBooleanService.get()
         assertThat(value1).isEqualTo(true)
 
-        configurationService!!.updateProperty("EXAMPLE_BOOLEAN_PROPERTY", "false")
+        configurationService.updateProperty("EXAMPLE_BOOLEAN_PROPERTY", "false")
 
-        val value2 = examplePropertyBooleanService!!.get()
+        val value2 = examplePropertyBooleanService.get()
         assertThat(value2).isEqualTo(false)
         assertThat(value2).isEqualTo(false)
     }
 
     @Test
-    fun update3Test() {
-        examplePropertyStringService!!.init()
-        val value1 = examplePropertyStringService!!.get()
+    def update3Test() {
+        examplePropertyStringService.init()
+        val value1 = examplePropertyStringService.get()
         assertThat(value1).isEqualTo("one")
 
-        configurationService!!.updateProperty("EXAMPLE_STRING_PROPERTY", "two")
+        configurationService.updateProperty("EXAMPLE_STRING_PROPERTY", "two")
 
-        val value2 = examplePropertyStringService!!.get()
+        val value2 = examplePropertyStringService.get()
         assertThat(value2).isEqualTo("two")
         assertThat(value2).isEqualTo("two")
     }
 
     @Test
-    fun update4Test() {
-        examplePropertyIntegerService!!.init()
-        val value1 = examplePropertyIntegerService!!.get()
+    def update4Test() {
+        examplePropertyIntegerService.init()
+        val value1 = examplePropertyIntegerService.get()
         assertThat(value1).isEqualTo(1)
 
-        configurationService!!.updateProperty("EXAMPLE_INTEGER_PROPERTY", "2")
+        configurationService.updateProperty("EXAMPLE_INTEGER_PROPERTY", "2")
 
-        val value2 = examplePropertyIntegerService!!.get()
+        val value2 = examplePropertyIntegerService.get()
         assertThat(value2).isEqualTo(2)
         assertThat(value2).isEqualTo(2)
     }

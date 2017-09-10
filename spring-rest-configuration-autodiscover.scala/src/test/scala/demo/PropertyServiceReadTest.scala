@@ -21,8 +21,8 @@ class PropertyServiceReadTest {
     private val configurationService: ConfigurationService? = null
 
     @Test
-    fun findAllPropertiesTest() {
-        val properties = configurationService!!.findAllProperties()
+    def findAllPropertiesTest() {
+        val properties = configurationService.findAllProperties()
         assertThat(properties.size).isEqualTo(4)
 
         val codeToProperty = properties.map { it.code to it }.toMap()
@@ -34,38 +34,38 @@ class PropertyServiceReadTest {
     }
 
     @Test
-    fun findPropertyByName1Test() {
-        val propertyOpt = configurationService!!.findPropertyByName("EXAMPLE_ENUM_PROPERTY")
+    def findPropertyByName1Test() {
+        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_ENUM_PROPERTY")
         assertThat(propertyOpt.isPresent).isEqualTo(true)
 
         assertProperty1(propertyOpt.get())
     }
 
     @Test
-    fun findPropertyByName2Test() {
-        val propertyOpt = configurationService!!.findPropertyByName("EXAMPLE_BOOLEAN_PROPERTY")
+    def findPropertyByName2Test() {
+        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_BOOLEAN_PROPERTY")
         assertThat(propertyOpt.isPresent).isEqualTo(true)
 
         assertProperty2(propertyOpt.get())
     }
 
     @Test
-    fun findPropertyByName3Test() {
-        val propertyOpt = configurationService!!.findPropertyByName("EXAMPLE_STRING_PROPERTY")
+    def findPropertyByName3Test() {
+        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_STRING_PROPERTY")
         assertThat(propertyOpt.isPresent).isEqualTo(true)
 
         assertProperty3(propertyOpt.get())
     }
 
     @Test
-    fun findPropertyByName4Test() {
-        val propertyOpt = configurationService!!.findPropertyByName("EXAMPLE_INTEGER_PROPERTY")
+    def findPropertyByName4Test() {
+        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_INTEGER_PROPERTY")
         assertThat(propertyOpt.isPresent).isEqualTo(true)
 
         assertProperty4(propertyOpt.get())
     }
 
-    private fun assertProperty1(property: Property) {
+    private def assertProperty1(property: Property) {
         assertThat(property.code).isEqualTo(Code.EXAMPLE_ENUM_PROPERTY)
         assertThat(property.type).isEqualTo(Type.ENUM)
         assertThat(property.value).isEqualTo("ONE")
@@ -75,7 +75,7 @@ class PropertyServiceReadTest {
         assertThat(property.possibleValues[2]).isEqualTo("THREE")
     }
 
-    private fun assertProperty2(property: Property) {
+    private def assertProperty2(property: Property) {
         assertThat(property.code).isEqualTo(Code.EXAMPLE_BOOLEAN_PROPERTY)
         assertThat(property.type).isEqualTo(Type.BOOLEAN)
         assertThat(property.value).isEqualTo("true")
@@ -84,14 +84,14 @@ class PropertyServiceReadTest {
         assertThat(property.possibleValues[1]).isEqualTo("false")
     }
 
-    private fun assertProperty3(property: Property) {
+    private def assertProperty3(property: Property) {
         assertThat(property.code).isEqualTo(Code.EXAMPLE_STRING_PROPERTY)
         assertThat(property.type).isEqualTo(Type.STRING)
         assertThat(property.value).isEqualTo("one")
         assertThat(property.possibleValues.size).isEqualTo(0)
     }
 
-    private fun assertProperty4(property: Property) {
+    private def assertProperty4(property: Property) {
         assertThat(property.code).isEqualTo(Code.EXAMPLE_INTEGER_PROPERTY)
         assertThat(property.type).isEqualTo(Type.INTEGER)
         assertThat(property.value).isEqualTo("1")

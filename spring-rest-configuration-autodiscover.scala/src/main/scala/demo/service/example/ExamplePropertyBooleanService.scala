@@ -11,7 +11,7 @@ class ExamplePropertyBooleanService : PropertyBooleanService() {
     @Value("\${example.property.boolean}")
     private val defaultValue: Boolean? = null
 
-    override fun getCode() = Code.EXAMPLE_BOOLEAN_PROPERTY
+    override def getCode() = Code.EXAMPLE_BOOLEAN_PROPERTY
 
-    public override fun getDefaultValue() = defaultValue!!
+    public override def getDefaultValue() = defaultValue!!
 }

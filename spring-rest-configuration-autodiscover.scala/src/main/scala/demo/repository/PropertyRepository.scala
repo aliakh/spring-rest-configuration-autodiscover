@@ -7,5 +7,5 @@ import java.util.*
 
 interface PropertyRepository : JpaRepository<Property, Code> {
 
-    fun findByCode(code: Code): Optional<Property>
+    def findByCode(code: Code): Optional<Property>
 }

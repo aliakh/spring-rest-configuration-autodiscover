@@ -11,11 +11,11 @@ class ExamplePropertyEnumService : PropertyEnumService<ExamplePropertyEnumServic
     @Value("\${example.property.enum}")
     private val defaultValue: ExampleEnum? = null
 
-    override fun getCode() = Code.EXAMPLE_ENUM_PROPERTY
+    override def getCode() = Code.EXAMPLE_ENUM_PROPERTY
 
-    public override fun getDefaultValue() = defaultValue!!
+    public override def getDefaultValue() = defaultValue!!
 
-    override fun getEnumClass(): Class<ExampleEnum> = ExampleEnum::class.java
+    override def getEnumClass(): Class<ExampleEnum> = ExampleEnum::class.java
 
     enum class ExampleEnum {
         ONE,

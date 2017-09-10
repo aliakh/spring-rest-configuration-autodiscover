@@ -22,7 +22,7 @@ class Property {
     @Transient
     var possibleValues: List<String> = ArrayList()
 
-    fun addPossibleValues(possibleValues: List<String>): Property {
+    def addPossibleValues(possibleValues: List<String>): Property {
         this.possibleValues = possibleValues
         return this
     }

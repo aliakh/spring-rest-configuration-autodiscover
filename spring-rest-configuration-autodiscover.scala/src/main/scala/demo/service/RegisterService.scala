@@ -19,8 +19,8 @@ class RegisterService {
     private val codeToPropertyService = EnumMap<Code, PropertyService<*>>(Code::class.java)
 
     @PostConstruct
-    fun init() {
-        LOGGER.info("Property services count: " + propertyServices!!.size)
+    def init() {
+        LOGGER.info("Property services count: " + propertyServices.size)
 
         for (propertyService in propertyServices.orEmpty()) {
             val code = propertyService.getCode()
@@ -36,7 +36,7 @@ class RegisterService {
         }
     }
 
-    fun findPropertyServiceByCode(code: Code): PropertyService<*> {
+    def findPropertyServiceByCode(code: Code): PropertyService<*> {
         return codeToPropertyService[code] ?: throw RuntimeException("Property service not found by the code: " + code)
     }
 }

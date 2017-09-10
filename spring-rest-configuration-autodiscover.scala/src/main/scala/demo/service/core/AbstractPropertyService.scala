@@ -12,12 +12,12 @@ abstract class AbstractPropertyService<T> : PropertyService<T> {
     @Autowired
     private val propertyRepository: PropertyRepository? = null
 
-    override fun update(value: String): Property {
+    override def update(value: String): Property {
         valueOpt = Optional.of(fromString(value))
         return save(value)
     }
 
-    override fun init() {
+    override def init() {
         val propertyOpt = findPropertyByCode(getCode())
         if (propertyOpt.isPresent) {
             val value = propertyOpt.get().value
@@ -29,7 +29,7 @@ abstract class AbstractPropertyService<T> : PropertyService<T> {
         }
     }
 
-    fun get(): T {
+    def get(): T {
         if (valueOpt.isPresent) {
             return valueOpt.get()
         } else {
@@ -43,30 +43,30 @@ abstract class AbstractPropertyService<T> : PropertyService<T> {
         }
     }
 
-    protected abstract fun getType(): Type
+    protected abstract def getType(): Type
 
-    protected abstract fun fromString(input: String?): T
+    protected abstract def fromString(input: String?): T
 
-    protected abstract fun toString(input: T?): String
+    protected abstract def toString(input: T?): String
 
-    protected abstract fun getDefaultValue(): T
+    protected abstract def getDefaultValue(): T
 
-    override fun getPossibleValues(): List<String> = ArrayList()
+    override def getPossibleValues(): List<String> = ArrayList()
 
-    private fun findPropertyByCode(code: Code): Optional<Property> {
-        return propertyRepository!!.findByCode(code)
+    private def findPropertyByCode(code: Code): Optional<Property> {
+        return propertyRepository.findByCode(code)
     }
 
-    private fun save(value: String): Property {
+    private def save(value: String): Property {
         val property = Property()
         property.code = getCode()
         property.type = getType()
         property.value = value
 
-        return propertyRepository!!.save(property)
+        return propertyRepository.save(property)
     }
 
-    override fun toString(): String {
+    override def toString(): String {
         return super.toString() + "{" +
                 "getCode()=" + getCode() +
                 ", getType()=" + getType() +

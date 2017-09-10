@@ -11,7 +11,7 @@ class ExamplePropertyIntegerService : PropertyIntegerService() {
     @Value("\${example.property.integer}")
     private val defaultValue: Int? = null
 
-    override fun getCode() = Code.EXAMPLE_INTEGER_PROPERTY
+    override def getCode() = Code.EXAMPLE_INTEGER_PROPERTY
 
-    public override fun getDefaultValue() = defaultValue!!
+    public override def getDefaultValue() = defaultValue!!
 }

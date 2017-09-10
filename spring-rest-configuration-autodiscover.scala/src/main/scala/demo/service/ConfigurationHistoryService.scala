@@ -16,7 +16,7 @@ class ConfigurationHistoryService {
     @Autowired
     private val propertyHistoryRepository: PropertyHistoryRepository? = null
 
-    fun savePropertyHistory(code: Code, previousValue: String, currentValue: String) {
+    def savePropertyHistory(code: Code, previousValue: String, currentValue: String) {
         LOGGER.info(String.format("Property %s is changing from '%s' to '%s'", code, previousValue, currentValue))
 
         val propertyHistory = PropertyHistory()
@@ -25,10 +25,10 @@ class ConfigurationHistoryService {
         propertyHistory.previousValue = previousValue
         propertyHistory.currentValue = currentValue
 
-        propertyHistoryRepository!!.save(propertyHistory)
+        propertyHistoryRepository.save(propertyHistory)
     }
 
-    fun findAllPropertyHistories(): List<PropertyHistory> {
-        return propertyHistoryRepository!!.findAll()
+    def findAllPropertyHistories(): List<PropertyHistory> {
+        return propertyHistoryRepository.findAll()
     }
 }

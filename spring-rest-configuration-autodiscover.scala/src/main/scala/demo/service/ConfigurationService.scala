@@ -20,24 +20,24 @@ class ConfigurationService {
     @Autowired
     private val registerService: RegisterService? = null
 
-    fun findAllProperties(): List<Property> {
-        return propertyRepository!!.findAll()
+    def findAllProperties(): List<Property> {
+        return propertyRepository.findAll()
                 .map { property -> this.addPossibleValues(property) }
     }
 
-    fun findPropertyByName(name: String): Optional<Property> {
-        return propertyRepository!!.findByCode(Code.valueOf(name))
+    def findPropertyByName(name: String): Optional<Property> {
+        return propertyRepository.findByCode(Code.valueOf(name))
                 .map { property -> this.addPossibleValues(property) }
     }
 
-    private fun addPossibleValues(property: Property): Property {
-        val propertyService = registerService!!.findPropertyServiceByCode(property.code!!)
+    private def addPossibleValues(property: Property): Property {
+        val propertyService = registerService.findPropertyServiceByCode(property.code!!)
         return property.addPossibleValues(propertyService.getPossibleValues())
     }
 
     @Transactional
-    fun updateProperty(name: String, value: String): Property {
-        val propertyOpt = propertyRepository!!.findByCode(Code.valueOf(name))
+    def updateProperty(name: String, value: String): Property {
+        val propertyOpt = propertyRepository.findByCode(Code.valueOf(name))
         if (!propertyOpt.isPresent) {
             throw RuntimeException("Property not found by name: " + name)
         }
@@ -45,9 +45,9 @@ class ConfigurationService {
         val property = propertyOpt.get()
         val code = property.code!!
 
-        configurationHistoryService!!.savePropertyHistory(code, property.value!!, value)
+        configurationHistoryService.savePropertyHistory(code, property.value!!, value)
 
-        val propertyService = registerService!!.findPropertyServiceByCode(code)
+        val propertyService = registerService.findPropertyServiceByCode(code)
         return propertyService.update(value)
     }
 }
