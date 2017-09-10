@@ -25,13 +25,13 @@ class ConfigurationService {
     List<Property> findAllProperties() {
         List<Property> properties = propertyRepository.findAll()
         return properties.stream()
-                .map(this::addPossibleValues)
+                .map(this.&addPossibleValues)
                 .collect(Collectors.toList())
     }
 
     Optional<Property> findPropertyByName(String name) {
         Optional<Property> propertyOpt = propertyRepository.findByCode(Code.valueOf(name))
-        return propertyOpt.map(this::addPossibleValues)
+        return propertyOpt.map(this.&addPossibleValues)
     }
 
     private Property addPossibleValues(Property property) {

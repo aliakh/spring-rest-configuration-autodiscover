@@ -22,7 +22,7 @@ abstract class PropertyEnumService<T extends Enum<T>> extends AbstractPropertySe
 
     @Override
     List<String> getPossibleValues() {
-        return Stream.of(getEnumClass().getEnumConstants()).map(Enum::name).collect(Collectors.toList())
+        return Stream.of(getEnumClass().getEnumConstants()).map(it.name).collect(Collectors.toList())
     }
 
     protected abstract Class<T> getEnumClass()

@@ -81,7 +81,7 @@ public class PropertyServiceReadTest {
         assertThat(property.getPossibleValues().get(2)).isEqualTo("THREE");
     }
 
-    public void assertProperty2(Property property) {
+    private void assertProperty2(Property property) {
         assertThat(property.getCode()).isEqualTo(Code.EXAMPLE_BOOLEAN_PROPERTY);
         assertThat(property.getType()).isEqualTo(Type.BOOLEAN);
         assertThat(property.getValue()).isEqualTo("true");
@@ -90,14 +90,14 @@ public class PropertyServiceReadTest {
         assertThat(property.getPossibleValues().get(1)).isEqualTo("false");
     }
 
-    public void assertProperty3(Property property) {
+    private void assertProperty3(Property property) {
         assertThat(property.getCode()).isEqualTo(Code.EXAMPLE_STRING_PROPERTY);
         assertThat(property.getType()).isEqualTo(Type.STRING);
         assertThat(property.getValue()).isEqualTo("one");
         assertThat(property.getPossibleValues().size()).isEqualTo(0);
     }
 
-    public void assertProperty4(Property property) {
+    private void assertProperty4(Property property) {
         assertThat(property.getCode()).isEqualTo(Code.EXAMPLE_INTEGER_PROPERTY);
         assertThat(property.getType()).isEqualTo(Type.INTEGER);
         assertThat(property.getValue()).isEqualTo("1");
