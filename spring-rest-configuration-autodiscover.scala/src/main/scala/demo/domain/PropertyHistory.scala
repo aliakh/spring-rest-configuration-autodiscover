@@ -2,25 +2,25 @@ package demo.domain
 
 import demo.service.core.Code
 import java.time.LocalDateTime
-import javax.persistence.*
+import javax.persistence._
 
 @Entity
 class PropertyHistory {
 
     @Id
     @GeneratedValue
-    var id: Long? = null
+    var id: Long = _
 
     @Column(nullable = false)
-    var createDate: LocalDateTime? = null
+    var createDate: LocalDateTime = _
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    var code: Code? = null
+    var code: Code.Value = _
 
     @Column(nullable = false)
-    var previousValue: String? = null
+    var previousValue: String = _
 
     @Column(nullable = false)
-    var currentValue: String? = null
+    var currentValue: String = _
 }

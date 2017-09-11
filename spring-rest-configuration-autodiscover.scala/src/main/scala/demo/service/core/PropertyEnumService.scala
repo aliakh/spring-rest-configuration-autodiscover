@@ -1,6 +1,6 @@
 package demo.service.core
 
-abstract class PropertyEnumService<T : Enum<T>> : AbstractPropertyService<T>() {
+abstract class PropertyEnumService[T : Enum[T]] extends AbstractPropertyService[T]() {
 
     override def getType() = Type.ENUM
 

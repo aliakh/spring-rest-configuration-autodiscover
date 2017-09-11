@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation._
 import javax.validation.Valid
 
 @RestController
-@RequestMapping(value = "api/configuration", produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
+@RequestMapping(value = Array("api/configuration"), produces = Array(MediaType.APPLICATION_JSON_VALUE))
 class ConfigurationController {
 
     @Autowired
-    private val configurationService: ConfigurationService? = null
+    private val configurationService: ConfigurationService = _
 
     @Autowired
-    private val configurationHistoryService: ConfigurationHistoryService? = null
+    private val configurationHistoryService: ConfigurationHistoryService = _
 
-    @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
-    def findAllProperties(): ResponseEntity<List<Property>> {
-        return ResponseEntity(configurationService.findAllProperties(), HttpStatus.OK)
+    @RequestMapping(value = Array(""), method = Array(RequestMethod.GET))
+    def findAllProperties(): ResponseEntity[List[Property]] = {
+        new ResponseEntity(configurationService.findAllProperties(), HttpStatus.OK)
     }
 
-    @RequestMapping(value = "/name/{name}", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = Array("/name/{name}"), method = Array(RequestMethod.GET))
     def findPropertyByName(
-            @PathVariable name: String): ResponseEntity<Property> {
+            @PathVariable name: String): ResponseEntity[Property] = {
         val propertyOpt = configurationService.findPropertyByName(name)
-        return propertyOpt
-                .map<ResponseEntity<Property>>({ property -> ResponseEntity(property, HttpStatus.OK) })
-                .orElseGet { ResponseEntity(Property(), HttpStatus.NOT_FOUND) }
+        propertyOpt
+                .map<ResponseEntity[Property]>({ property -> ResponseEntity(property, HttpStatus.OK) })
+                .orElseGet { new ResponseEntity(new Property(), HttpStatus.NOT_FOUND) }
     }
 
-    @RequestMapping(value = "/name/{name}", method = arrayOf(RequestMethod.PUT), consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE))
+    @RequestMapping(value = Array("/name/{name}"), method = Array(RequestMethod.PUT), consumes = Array(MediaType.APPLICATION_JSON_VALUE))
     def updateProperty(
             @PathVariable name: String,
-            @Valid @RequestBody value: Value): ResponseEntity<Property> {
-        return ResponseEntity(configurationService.updateProperty(name, value.value!!), HttpStatus.OK)
+            @Valid @RequestBody value: Value): ResponseEntity[Property] = {
+        new ResponseEntity(configurationService.updateProperty(name, value.value), HttpStatus.OK)
     }
 
-    @RequestMapping(value = "/history", method = arrayOf(RequestMethod.GET))
-    def findAllPropertyHistories(): List<PropertyHistory> {
-        return configurationHistoryService.findAllPropertyHistories()
+    @RequestMapping(value = Array("/history"), method = Array(RequestMethod.GET))
+    def findAllPropertyHistories(): java.util.List[PropertyHistory] = {
+        configurationHistoryService.findAllPropertyHistories()
     }
 }

@@ -5,7 +5,7 @@ import demo.service.core.PropertyService
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util._
 import javax.annotation.PostConstruct
 
 @Service
@@ -37,6 +37,6 @@ class RegisterService {
     }
 
     def findPropertyServiceByCode(code: Code): PropertyService<*> {
-        return codeToPropertyService[code] ?: throw RuntimeException("Property service not found by the code: " + code)
+        codeToPropertyService[code] ?: throw RuntimeException("Property service not found by the code: " + code)
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExamplePropertyIntegerService : PropertyIntegerService() {
+class ExamplePropertyIntegerService extends PropertyIntegerService() {
 
     @Value("\${example.property.integer}")
     private val defaultValue: Int? = null

@@ -2,13 +2,13 @@ package demo.service.core
 
 import demo.domain.Property
 
-interface PropertyService<T> {
+trait PropertyService[T] {
 
     def update(value: String): Property
 
     def init()
 
-    def getCode(): Code
+    def getCode(): Code.Value
 
-    def getPossibleValues(): List<String>
+    def getPossibleValues(): List[String]
 }

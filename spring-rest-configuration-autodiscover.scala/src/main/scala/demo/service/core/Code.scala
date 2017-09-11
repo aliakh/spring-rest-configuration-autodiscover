@@ -1,8 +1,6 @@
 package demo.service.core
 
-enum class Code {
-    EXAMPLE_ENUM_PROPERTY,
-    EXAMPLE_BOOLEAN_PROPERTY,
-    EXAMPLE_STRING_PROPERTY,
-    EXAMPLE_INTEGER_PROPERTY,
+object Code extends Enumeration {
+  type Code = Value
+  val EXAMPLE_ENUM_PROPERTY, EXAMPLE_BOOLEAN_PROPERTY, EXAMPLE_STRING_PROPERTY, EXAMPLE_INTEGER_PROPERTY = Value
 }

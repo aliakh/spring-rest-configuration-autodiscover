@@ -4,4 +4,4 @@ import demo.domain.PropertyHistory
 import demo.service.core.Code
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface PropertyHistoryRepository : JpaRepository<PropertyHistory, Code>
+trait PropertyHistoryRepository extends JpaRepository[PropertyHistory, Code.Value]

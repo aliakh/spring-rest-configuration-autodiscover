@@ -5,5 +5,5 @@ import org.hibernate.validator.constraints.NotEmpty
 class Value {
 
     @NotEmpty
-    var value: String? = null
+    var value: String = _
 }

@@ -1,8 +1,8 @@
 package demo.service.core
 
-import java.util.*
+import java.util._
 
-abstract class PropertyBooleanService : AbstractPropertyService<Boolean>() {
+abstract class PropertyBooleanService extends AbstractPropertyService[Boolean]() {
 
     override def getType() = Type.BOOLEAN
 

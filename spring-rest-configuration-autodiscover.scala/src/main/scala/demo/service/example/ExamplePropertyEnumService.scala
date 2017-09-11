@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExamplePropertyEnumService : PropertyEnumService<ExamplePropertyEnumService.ExampleEnum>() {
+class ExamplePropertyEnumService extends PropertyEnumService[ExamplePropertyEnumService.ExampleEnum]() {
 
-    @Value("\${example.property.enum}")
+    @Value("${example.property.enum}")
     private val defaultValue: ExampleEnum? = null
 
     override def getCode() = Code.EXAMPLE_ENUM_PROPERTY

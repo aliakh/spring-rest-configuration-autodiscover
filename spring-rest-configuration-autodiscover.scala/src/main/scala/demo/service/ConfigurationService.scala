@@ -12,27 +12,27 @@ import java.util.*
 class ConfigurationService {
 
     @Autowired
-    private val propertyRepository: PropertyRepository? = null
+    private val propertyRepository: PropertyRepository = _
 
     @Autowired
-    private val configurationHistoryService: ConfigurationHistoryService? = null
+    private val configurationHistoryService: ConfigurationHistoryService = _
 
     @Autowired
-    private val registerService: RegisterService? = null
+    private val registerService: RegisterService = _
 
-    def findAllProperties(): List<Property> {
-        return propertyRepository.findAll()
+    def findAllProperties(): List[Property] = {
+        propertyRepository.findAll()
                 .map { property -> this.addPossibleValues(property) }
     }
 
-    def findPropertyByName(name: String): Optional<Property> {
-        return propertyRepository.findByCode(Code.valueOf(name))
+    def findPropertyByName(name: String): Optional<Property> = {
+        propertyRepository.findByCode(Code.valueOf(name))
                 .map { property -> this.addPossibleValues(property) }
     }
 
-    private def addPossibleValues(property: Property): Property {
+    private def addPossibleValues(property: Property): Property = {
         val propertyService = registerService.findPropertyServiceByCode(property.code!!)
-        return property.addPossibleValues(propertyService.getPossibleValues())
+        property.addPossibleValues(propertyService.getPossibleValues())
     }
 
     @Transactional
@@ -48,6 +48,6 @@ class ConfigurationService {
         configurationHistoryService.savePropertyHistory(code, property.value!!, value)
 
         val propertyService = registerService.findPropertyServiceByCode(code)
-        return propertyService.update(value)
+        propertyService.update(value)
     }
 }

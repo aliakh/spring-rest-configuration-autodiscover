@@ -1,6 +1,6 @@
 package demo.service.core
 
-abstract class PropertyIntegerService : AbstractPropertyService<Int>() {
+abstract class PropertyIntegerService extends AbstractPropertyService[Int]() {
 
     override def getType() = Type.INTEGER
 

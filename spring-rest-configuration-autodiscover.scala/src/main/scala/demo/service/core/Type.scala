@@ -1,8 +1,6 @@
 package demo.service.core
 
-enum class Type {
-    ENUM,
-    BOOLEAN,
-    STRING,
-    INTEGER,
+object Type extends Enumeration {
+  type Type = Value
+  val ENUM, BOOLEAN, STRING, INTEGER = Value
 }
