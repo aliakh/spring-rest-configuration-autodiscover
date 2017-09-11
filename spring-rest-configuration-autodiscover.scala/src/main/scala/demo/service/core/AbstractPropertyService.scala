@@ -43,15 +43,15 @@ abstract class AbstractPropertyService[T] extends PropertyService[T] {
         }
     }
 
-    protected abstract def getType(): Type.Value
+    protected abstract def getType: Type.Value
 
     protected abstract def fromString(input: String): T
 
     protected abstract def toString(input: T): String
 
-    protected abstract def getDefaultValue(): T
+    protected abstract def getDefaultValue: T
 
-    override def getPossibleValues(): List<String> = new ArrayList()
+    override def getPossibleValues: java.util.List[String] = new java.util.ArrayList()
 
     private def findPropertyByCode(code: Code.Value): Optional[Property] = {
         propertyRepository.findByCode(code)
@@ -59,17 +59,17 @@ abstract class AbstractPropertyService[T] extends PropertyService[T] {
 
     private def save(value: String): Property = {
         val property = new Property()
-        property.code = getCode()
-        property.type = getType()
+        property.code = getCode
+        property.type = getType
         property.value = value
 
         propertyRepository.save(property)
     }
 
-    override def toString(): String = {
-        super.toString() + "{" +
-                "getCode()=" + getCode() +
-                ", getType()=" + getType() +
+    override def toString: String = {
+        super.toString + "{" +
+                "getCode()=" + getCode +
+                ", getType()=" + getType +
                 '}'
     }
 }

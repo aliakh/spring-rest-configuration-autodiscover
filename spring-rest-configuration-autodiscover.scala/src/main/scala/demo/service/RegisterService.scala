@@ -11,12 +11,12 @@ import javax.annotation.PostConstruct
 @Service
 class RegisterService {
 
-    private val LOGGER = LogFactory.getLog(RegisterService::class.java)
+    private val LOGGER = LogFactory.getLog(classOf[RegisterService])
 
     @Autowired
-    private val propertyServices: List<PropertyService<*>>? = null
+    private val propertyServices: List[PropertyService[_]] = null
 
-    private val codeToPropertyService = EnumMap<Code, PropertyService<*>>(Code::class.java)
+    private val codeToPropertyService = EnumMap[Code.Value, PropertyService[_]](Code::class.java)
 
     @PostConstruct
     def init() {
@@ -28,7 +28,7 @@ class RegisterService {
 
             val propertyService0 = codeToPropertyService[code]
             if (propertyService0 != null) {
-                throw RuntimeException(String.format("Property service %s is already registered by the code %s", propertyService0, code))
+                throw new RuntimeException(String.format("Property service %s is already registered by the code %s", propertyService0, code))
             }
 
             codeToPropertyService.put(code, propertyService)
@@ -36,7 +36,7 @@ class RegisterService {
         }
     }
 
-    def findPropertyServiceByCode(code: Code): PropertyService<*> {
+    def findPropertyServiceByCode(code: Code.Value): PropertyService[_] = {
         codeToPropertyService[code] ?: throw RuntimeException("Property service not found by the code: " + code)
     }
 }

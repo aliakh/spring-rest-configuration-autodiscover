@@ -11,12 +11,12 @@ import java.time.LocalDateTime
 @Service
 class ConfigurationHistoryService {
 
-    private val LOGGER = LogFactory.getLog(ConfigurationHistoryService.class)
+    private val LOGGER = LogFactory.getLog(classOf[ConfigurationHistoryService])
 
     @Autowired
     private val propertyHistoryRepository: PropertyHistoryRepository = _
 
-    def savePropertyHistory(code: Code, previousValue: String, currentValue: String) {
+    def savePropertyHistory(code: Code.Value, previousValue: String, currentValue: String) {
         LOGGER.info(String.format("Property %s is changing from '%s' to '%s'", code, previousValue, currentValue))
 
         val propertyHistory = new PropertyHistory()

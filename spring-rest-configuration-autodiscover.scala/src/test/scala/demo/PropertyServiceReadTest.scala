@@ -27,10 +27,10 @@ class PropertyServiceReadTest {
 
         val codeToProperty = properties.map { it.code to it }.toMap()
 
-        assertProperty1(codeToProperty[Code.EXAMPLE_ENUM_PROPERTY]!!)
-        assertProperty2(codeToProperty[Code.EXAMPLE_BOOLEAN_PROPERTY]!!)
-        assertProperty3(codeToProperty[Code.EXAMPLE_STRING_PROPERTY]!!)
-        assertProperty4(codeToProperty[Code.EXAMPLE_INTEGER_PROPERTY]!!)
+        assertProperty1(codeToProperty[Code.EXAMPLE_ENUM_PROPERTY])
+        assertProperty2(codeToProperty[Code.EXAMPLE_BOOLEAN_PROPERTY])
+        assertProperty3(codeToProperty[Code.EXAMPLE_STRING_PROPERTY])
+        assertProperty4(codeToProperty[Code.EXAMPLE_INTEGER_PROPERTY])
     }
 
     @Test

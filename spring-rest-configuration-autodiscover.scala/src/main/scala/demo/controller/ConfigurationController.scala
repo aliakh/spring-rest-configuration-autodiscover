@@ -32,7 +32,7 @@ class ConfigurationController {
             @PathVariable name: String): ResponseEntity[Property] = {
         val propertyOpt = configurationService.findPropertyByName(name)
         propertyOpt
-                .map<ResponseEntity[Property]>({ property -> ResponseEntity(property, HttpStatus.OK) })
+                .map[ResponseEntity[Property]]({ property => new ResponseEntity(property, HttpStatus.OK) })
                 .orElseGet { new ResponseEntity(new Property(), HttpStatus.NOT_FOUND) }
     }
 

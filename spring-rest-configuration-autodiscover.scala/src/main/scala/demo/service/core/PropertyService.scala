@@ -8,7 +8,7 @@ trait PropertyService[T] {
 
     def init()
 
-    def getCode(): Code.Value
+    def getCode: Code.Value
 
-    def getPossibleValues(): List[String]
+    def getPossibleValues: java.util.List[String]
 }
