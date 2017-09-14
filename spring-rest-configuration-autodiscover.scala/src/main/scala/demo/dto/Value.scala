@@ -4,6 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty
 
 class Value {
 
-    @NotEmpty
-    var value: String = _
+  @NotEmpty
+  var value: String = _
 }
