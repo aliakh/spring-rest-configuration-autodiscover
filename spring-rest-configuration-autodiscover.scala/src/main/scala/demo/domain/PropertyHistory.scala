@@ -16,7 +16,7 @@ class PropertyHistory {
   var createDate: LocalDateTime = _
 
   @Column(nullable = false)
-  @Enumerated(value = EnumType.STRING)
+  @Convert(converter = classOf[CodeConverter])
   var code: Code.Value = _
 
   @Column(nullable = false)

@@ -8,11 +8,15 @@ import demo.service.core.{Code, Type}
 class Property {
 
   @Id
-  @Enumerated(value = EnumType.STRING)
+  @GeneratedValue
+  var id: Long = _
+
+  @Column(nullable = false)
+  @Convert(converter = classOf[CodeConverter])
   var code: Code.Value = _
 
   @Column(nullable = false)
-  @Enumerated(value = EnumType.STRING)
+  @Convert(converter = classOf[TypeConverter])
   var `type`: Type.Value = _
 
   @Column(nullable = false)

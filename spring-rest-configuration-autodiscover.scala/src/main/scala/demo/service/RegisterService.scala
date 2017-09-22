@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import scala.collection.JavaConverters._
+
 @Service
 class RegisterService {
 
@@ -21,11 +23,11 @@ class RegisterService {
   def init() {
     LOGGER.info("Property services count: " + propertyServices.size)
 
-    for (propertyService: PropertyService[_] <- propertyServices) {
+    for (propertyService <- propertyServices.asScala) {
       val code = propertyService.getCode
       LOGGER.info(String.format("Property service %s is registering by the code %s", propertyService.getClass.getSimpleName, code))
 
-      val propertyService0 = codeToPropertyService[code]
+      val propertyService0 = codeToPropertyService.get(code)
       if (propertyService0 != null) {
         throw new RuntimeException(String.format("Property service %s is already registered by the code %s", propertyService0, code))
       }

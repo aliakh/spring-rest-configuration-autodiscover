@@ -44,13 +44,13 @@ abstract class AbstractPropertyService[T] extends PropertyService[T] {
     }
   }
 
-  protected abstract def getType: Type.Value
+  protected def getType: Type.Value
 
-  protected abstract def fromString(input: String): T
+  protected def fromString(input: String): T
 
-  protected abstract def toString(input: T): String
+  protected def toString(input: T): String
 
-  protected abstract def getDefaultValue: T
+  protected def getDefaultValue: T
 
   override def getPossibleValues: java.util.List[String] = new java.util.ArrayList()
 

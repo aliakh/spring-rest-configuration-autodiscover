@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class ExamplePropertyBooleanService extends PropertyBooleanService {
 
   @Value("${example.property.boolean}")
-  private val defaultValue: Boolean = null
+  private val defaultValue: Boolean = false
 
   override def getCode: Code.Value = Code.EXAMPLE_BOOLEAN_PROPERTY
 

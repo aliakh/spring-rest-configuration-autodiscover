@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class ExamplePropertyIntegerService extends PropertyIntegerService {
 
   @Value("${example.property.integer}")
-  private val defaultValue: Int = null
+  private val defaultValue: Int = 0
 
   override def getCode: Code.Value = Code.EXAMPLE_INTEGER_PROPERTY
 
