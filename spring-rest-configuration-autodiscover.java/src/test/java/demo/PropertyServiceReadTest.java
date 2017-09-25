@@ -31,7 +31,7 @@ public class PropertyServiceReadTest {
         List<Property> properties = configurationService.findAllProperties();
         assertThat(properties.size()).isEqualTo(4);
 
-        Map<Code, Property> codeToProperty = properties.stream().collect(Collectors.toMap(Property::getCode, configuration -> configuration));
+        Map<Code, Property> codeToProperty = properties.stream().collect(Collectors.toMap(Property::getCode, property -> property));
 
         assertProperty1(codeToProperty.get(Code.EXAMPLE_ENUM_PROPERTY));
         assertProperty2(codeToProperty.get(Code.EXAMPLE_BOOLEAN_PROPERTY));

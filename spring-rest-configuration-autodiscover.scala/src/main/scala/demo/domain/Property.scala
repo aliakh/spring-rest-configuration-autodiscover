@@ -5,14 +5,10 @@ import javax.persistence._
 import demo.service.core.{Code, Type}
 
 @Entity
+@IdClass(classOf[CodeIdClass])
 class Property {
 
   @Id
-  @GeneratedValue
-  var id: Long = _
-
-  @Column(nullable = false)
-  @Convert(converter = classOf[CodeConverter])
   var code: Code.Value = _
 
   @Column(nullable = false)

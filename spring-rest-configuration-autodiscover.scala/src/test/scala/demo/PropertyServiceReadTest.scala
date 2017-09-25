@@ -2,9 +2,8 @@ package demo
 
 import demo.domain.Property
 import demo.service.ConfigurationService
-import demo.service.core.Code
-import demo.service.core.Type
-import org.assertj.core.api.Assertions.assertThat
+import demo.service.core.{Code, Type}
+import org.assertj.core.api.Assertions._
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,89 +11,94 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
 
-@RunWith(SpringRunner::class)
+import scala.collection.JavaConverters._
+
+@RunWith(classOf[SpringRunner])
 @SpringBootTest
 @Transactional
 class PropertyServiceReadTest {
 
-    @Autowired
-    private val configurationService: ConfigurationService? = null
+  @Autowired
+  private val configurationService: ConfigurationService = null
 
-    @Test
-    def findAllPropertiesTest() {
-        val properties = configurationService.findAllProperties()
-        assertThat(properties.size).isEqualTo(4)
+  @Test
+  def findAllPropertiesTest() {
+    val properties = configurationService.findAllProperties()
+    assertThat(properties.size).isEqualTo(4)
 
-        val codeToProperty = properties.map { it.code to it }.toMap()
+    val codeToProperty: Map[Code.Value, Property] = properties
+      .asScala
+      .map(property => property.code -> property)
+      .toMap
 
-        assertProperty1(codeToProperty[Code.EXAMPLE_ENUM_PROPERTY])
-        assertProperty2(codeToProperty[Code.EXAMPLE_BOOLEAN_PROPERTY])
-        assertProperty3(codeToProperty[Code.EXAMPLE_STRING_PROPERTY])
-        assertProperty4(codeToProperty[Code.EXAMPLE_INTEGER_PROPERTY])
-    }
+    assertProperty1(codeToProperty.get(Code.EXAMPLE_ENUM_PROPERTY).get)
+    assertProperty2(codeToProperty.get(Code.EXAMPLE_BOOLEAN_PROPERTY).get)
+    assertProperty3(codeToProperty.get(Code.EXAMPLE_STRING_PROPERTY).get)
+    assertProperty4(codeToProperty.get(Code.EXAMPLE_INTEGER_PROPERTY).get)
+  }
 
-    @Test
-    def findPropertyByName1Test() {
-        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_ENUM_PROPERTY")
-        assertThat(propertyOpt.isPresent).isEqualTo(true)
+  @Test
+  def findPropertyByName1Test() {
+    val propertyOpt = configurationService.findPropertyByName("EXAMPLE_ENUM_PROPERTY")
+    assertThat(propertyOpt.isPresent).isEqualTo(true)
 
-        assertProperty1(propertyOpt.get())
-    }
+    assertProperty1(propertyOpt.get())
+  }
 
-    @Test
-    def findPropertyByName2Test() {
-        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_BOOLEAN_PROPERTY")
-        assertThat(propertyOpt.isPresent).isEqualTo(true)
+  @Test
+  def findPropertyByName2Test() {
+    val propertyOpt = configurationService.findPropertyByName("EXAMPLE_BOOLEAN_PROPERTY")
+    assertThat(propertyOpt.isPresent).isEqualTo(true)
 
-        assertProperty2(propertyOpt.get())
-    }
+    assertProperty2(propertyOpt.get())
+  }
 
-    @Test
-    def findPropertyByName3Test() {
-        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_STRING_PROPERTY")
-        assertThat(propertyOpt.isPresent).isEqualTo(true)
+  @Test
+  def findPropertyByName3Test() {
+    val propertyOpt = configurationService.findPropertyByName("EXAMPLE_STRING_PROPERTY")
+    assertThat(propertyOpt.isPresent).isEqualTo(true)
 
-        assertProperty3(propertyOpt.get())
-    }
+    assertProperty3(propertyOpt.get())
+  }
 
-    @Test
-    def findPropertyByName4Test() {
-        val propertyOpt = configurationService.findPropertyByName("EXAMPLE_INTEGER_PROPERTY")
-        assertThat(propertyOpt.isPresent).isEqualTo(true)
+  @Test
+  def findPropertyByName4Test() {
+    val propertyOpt = configurationService.findPropertyByName("EXAMPLE_INTEGER_PROPERTY")
+    assertThat(propertyOpt.isPresent).isEqualTo(true)
 
-        assertProperty4(propertyOpt.get())
-    }
+    assertProperty4(propertyOpt.get())
+  }
 
-    private def assertProperty1(property: Property) {
-        assertThat(property.code).isEqualTo(Code.EXAMPLE_ENUM_PROPERTY)
-        assertThat(property.type).isEqualTo(Type.ENUM)
-        assertThat(property.value).isEqualTo("ONE")
-        assertThat(property.possibleValues.size).isEqualTo(3)
-        assertThat(property.possibleValues[0]).isEqualTo("ONE")
-        assertThat(property.possibleValues[1]).isEqualTo("TWO")
-        assertThat(property.possibleValues[2]).isEqualTo("THREE")
-    }
+  private def assertProperty1(property: Property) {
+    assertThat(property.code.asInstanceOf[Ordered[Code.Code]]).isEqualTo(Code.EXAMPLE_ENUM_PROPERTY)
+    assertThat(property.`type`.asInstanceOf[Ordered[Type.Type]]).isEqualTo(Type.ENUM)
+    assertThat(property.value).isEqualTo("ONE")
+    assertThat(property.possibleValues.size).isEqualTo(3)
+    assertThat(property.possibleValues.get(0)).isEqualTo("ONE")
+    assertThat(property.possibleValues.get(1)).isEqualTo("TWO")
+    assertThat(property.possibleValues.get(2)).isEqualTo("THREE")
+  }
 
-    private def assertProperty2(property: Property) {
-        assertThat(property.code).isEqualTo(Code.EXAMPLE_BOOLEAN_PROPERTY)
-        assertThat(property.type).isEqualTo(Type.BOOLEAN)
-        assertThat(property.value).isEqualTo("true")
-        assertThat(property.possibleValues.size).isEqualTo(2)
-        assertThat(property.possibleValues[0]).isEqualTo("true")
-        assertThat(property.possibleValues[1]).isEqualTo("false")
-    }
+  private def assertProperty2(property: Property) {
+    assertThat(property.code.asInstanceOf[Ordered[Code.Code]]).isEqualTo(Code.EXAMPLE_BOOLEAN_PROPERTY)
+    assertThat(property.`type`.asInstanceOf[Ordered[Type.Type]]).isEqualTo(Type.BOOLEAN)
+    assertThat(property.value).isEqualTo("true")
+    assertThat(property.possibleValues.size).isEqualTo(2)
+    assertThat(property.possibleValues.get(0)).isEqualTo("true")
+    assertThat(property.possibleValues.get(1)).isEqualTo("false")
+  }
 
-    private def assertProperty3(property: Property) {
-        assertThat(property.code).isEqualTo(Code.EXAMPLE_STRING_PROPERTY)
-        assertThat(property.type).isEqualTo(Type.STRING)
-        assertThat(property.value).isEqualTo("one")
-        assertThat(property.possibleValues.size).isEqualTo(0)
-    }
+  private def assertProperty3(property: Property) {
+    assertThat(property.code.asInstanceOf[Ordered[Code.Code]]).isEqualTo(Code.EXAMPLE_STRING_PROPERTY)
+    assertThat(property.`type`.asInstanceOf[Ordered[Type.Type]]).isEqualTo(Type.STRING)
+    assertThat(property.value).isEqualTo("one")
+    assertThat(property.possibleValues.size).isEqualTo(0)
+  }
 
-    private def assertProperty4(property: Property) {
-        assertThat(property.code).isEqualTo(Code.EXAMPLE_INTEGER_PROPERTY)
-        assertThat(property.type).isEqualTo(Type.INTEGER)
-        assertThat(property.value).isEqualTo("1")
-        assertThat(property.possibleValues.size).isEqualTo(0)
-    }
+  private def assertProperty4(property: Property) {
+    assertThat(property.code.asInstanceOf[Ordered[Code.Code]]).isEqualTo(Code.EXAMPLE_INTEGER_PROPERTY)
+    assertThat(property.`type`.asInstanceOf[Ordered[Type.Type]]).isEqualTo(Type.INTEGER)
+    assertThat(property.value).isEqualTo("1")
+    assertThat(property.possibleValues.size).isEqualTo(0)
+  }
 }

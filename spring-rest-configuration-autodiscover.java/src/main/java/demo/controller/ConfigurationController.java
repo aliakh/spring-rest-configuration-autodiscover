@@ -35,7 +35,7 @@ public class ConfigurationController {
             @PathVariable String name) {
         Optional<Property> propertyOpt = configurationService.findPropertyByName(name);
         return propertyOpt
-                .map(configuration -> new ResponseEntity<>(configuration, HttpStatus.OK))
+                .map(property -> new ResponseEntity<>(property, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(new Property(), HttpStatus.NOT_FOUND));
     }
 
