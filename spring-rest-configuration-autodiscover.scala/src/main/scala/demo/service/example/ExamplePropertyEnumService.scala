@@ -1,8 +1,6 @@
 package demo.service.example
 
 import demo.service.core.{Code, PropertyEnumService}
-import demo.service.example.ExampleEnum
-import demo.service.example.ExampleEnum.ExampleEnum
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -16,7 +14,7 @@ class ExamplePropertyEnumService extends PropertyEnumService[ExampleEnum.Example
 
   override def getDefaultValue: ExampleEnum.Value = ExampleEnum.withName(defaultValue)
 
-  override def getEnumClass: Class[ExampleEnum.ExampleEnum] = classOf[ExampleEnum.ExampleEnum]
+  override def getEnumValues: Set[ExampleEnum.Value] = ExampleEnum.values
 }
 
 object ExampleEnum extends Enumeration {
